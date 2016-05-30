@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -85,6 +86,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
 
     private String mVoiceSearchText = "Speak now";
     private int mVersion = VERSION_TOOLBAR;
+    private int mVersionMargins = VERSION_MARGINS_TOOLBAR_SMALL;
     private int mAnimationDuration = ANIMATION_DURATION;
     private float mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
     private boolean mShadow = true;
@@ -326,25 +328,31 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         }
     }
 
+    public int getVersion() {
+        return mVersion;
+    }
+
     public void setVersionMargins(int version) {
         CardView.LayoutParams params = new CardView.LayoutParams(
                 CardView.LayoutParams.MATCH_PARENT,
                 CardView.LayoutParams.WRAP_CONTENT
         );
 
-        if (version == VERSION_MARGINS_TOOLBAR_SMALL) {
+        mVersionMargins = version;
+
+        if (mVersionMargins == VERSION_MARGINS_TOOLBAR_SMALL) {
             int top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top);
             int leftRight = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_small_left_right);
             int bottom = 0;
 
             params.setMargins(leftRight, top, leftRight, bottom);
-        } else if (version == VERSION_MARGINS_TOOLBAR_BIG) {
+        } else if (mVersionMargins == VERSION_MARGINS_TOOLBAR_BIG) {
             int top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top);
             int leftRight = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_big_left_right);
             int bottom = 0;
 
             params.setMargins(leftRight, top, leftRight, bottom);
-        } else if (version == VERSION_MARGINS_MENU_ITEM) {
+        } else if (mVersionMargins == VERSION_MARGINS_MENU_ITEM) {
             int margin = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
 
             params.setMargins(margin, margin, margin, margin);
@@ -355,9 +363,24 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         mCardView.setLayoutParams(params);
     }
 
+    @SuppressWarnings("unused")
+    public int getVersionMargins() {
+        return mVersionMargins;
+    }
+
+    @SuppressWarnings("unused")
+    @ColorInt
+    public int getBackgroundColor() {
+        return ((ColorDrawable)mCardView.getBackground()).getColor();
+    }
+
     @Override
     public void setBackgroundColor(@ColorInt int color) {
         mCardView.setCardBackgroundColor(color);
+    }
+
+    public CharSequence getText() {
+        return mEditText.getText();
     }
 
     public void setText(CharSequence text) {
@@ -368,8 +391,18 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         mEditText.setText(text);
     }
 
+    @SuppressWarnings("unused")
+    public float getTextSize() {
+        return mEditText.getTextSize();
+    }
+
     public void setTextSize(float size) {
         mEditText.setTextSize(TypedValue.COMPLEX_UNIT_SP, size);
+    }
+
+    @SuppressWarnings("unused")
+    public CharSequence getHint() {
+        return mEditText.getHint();
     }
 
     public void setHint(CharSequence hint) {
@@ -392,6 +425,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         }
     }
 
+    @SuppressWarnings("unused")
+    public boolean hasVoice() {
+        return mVoice;
+    }
+
     public void setVoice(boolean voice) {
         mVoice = voice;
         if (voice && isVoiceAvailable()) {
@@ -401,12 +439,22 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         }
     }
 
+    @SuppressWarnings("unused")
+    public String getVoiceSearchText() {
+        return mVoiceSearchText;
+    }
+
     public void setVoiceText(String text) {
         mVoiceSearchText = text;
     }
 
     public void setAnimationDuration(int animationDuration) {
         mAnimationDuration = animationDuration;
+    }
+
+    @SuppressWarnings("unused")
+    public int getAnimationDuration() {
+        return mAnimationDuration;
     }
 
     public void setShadow(boolean shadow) {
@@ -418,8 +466,24 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         mShadow = shadow;
     }
 
+    @SuppressWarnings("unused")
+    public boolean hasShadow() {
+        return mShadow;
+    }
+
+    @SuppressWarnings("unused")
+    @ColorInt
+    public int getShadowColor() {
+        return ((ColorDrawable)mShadowView.getBackground()).getColor();
+    }
+
     public void setShadowColor(@ColorInt int color) {
         mShadowView.setBackgroundColor(color);
+    }
+
+    @SuppressWarnings("unused")
+    public float getElevation() {
+        return mCardView.getCardElevation();
     }
 
     @Override
